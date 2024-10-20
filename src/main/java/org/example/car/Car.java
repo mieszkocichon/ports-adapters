@@ -5,6 +5,8 @@ import lombok.Setter;
 import org.example.domain.events.CarCreateEvent;
 import org.example.domain.events.CarEditNameEvent;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -15,10 +17,10 @@ import java.util.UUID;
 @Getter
 public class Car {
     private Long id;
-    private UUID uuid;
+    private @NotNull UUID uuid;
     private int version;
-    private String name;
-    private String owner;
+    private @Size(min = 3, max = 255) String name;
+    private @Size(min = 3, max = 255) String owner;
     private BigDecimal amount;
     private ZonedDateTime warrantyDate;
 

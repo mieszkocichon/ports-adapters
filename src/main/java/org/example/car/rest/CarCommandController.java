@@ -1,6 +1,7 @@
-package org.example.adapters.api;
+package org.example.car.rest;
 
 import lombok.RequiredArgsConstructor;
+import org.example.car.CarService;
 import org.example.domain.model.*;
 import org.example.domain.services.CarCommandServiceImpl;
 import org.springframework.http.ResponseEntity;
@@ -11,13 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("car-command")
+@RequestMapping("car")
 public class CarCommandController {
+    private final CarService carService;
     private final CarCommandServiceImpl carCommandService;
 
     @PostMapping("create")
-    public ResponseEntity<CarResponse> create(@RequestBody CreateCarRequest request) {
-        return ResponseEntity.ok(carCommandService.create(request));
+    public CarResponse create(@RequestBody CreateCarRequest request) {
+        return carService.create(request);
     }
 
     @PostMapping("edit-name")

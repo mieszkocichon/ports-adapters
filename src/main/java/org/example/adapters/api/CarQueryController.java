@@ -1,7 +1,7 @@
 package org.example.adapters.api;
 
 import lombok.RequiredArgsConstructor;
-import org.example.domain.model.CarResponse;
+import org.example.car.rest.CarResponse;
 import org.example.domain.services.CarQueryServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

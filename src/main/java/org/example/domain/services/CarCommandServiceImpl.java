@@ -3,7 +3,9 @@ package org.example.domain.services;
 import lombok.RequiredArgsConstructor;
 import org.example.adapters.repository.InMemoryEventStore;
 import org.example.car.Car;
-import org.example.domain.controllers.CarEntityToCarResponseMapper;
+import org.example.car.rest.CarResponse;
+import org.example.car.rest.CreateCarRequest;
+import org.example.domain.controllers.CarEntityToCarResponseAdapter;
 import org.example.domain.model.*;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class CarCommandServiceImpl {
 
     private final InMemoryEventStore eventStore;
-    private final CarEntityToCarResponseMapper carEntityToCarResponseMapper;
+    private final CarEntityToCarResponseAdapter carEntityToCarResponseAdapter;
     private final CarCRUDService carCRUDService;
 
     public CarResponse create(CreateCarRequest car) {

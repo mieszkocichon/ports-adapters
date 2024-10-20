@@ -3,6 +3,7 @@ package org.example.car;
 import lombok.Getter;
 import lombok.Setter;
 import org.example.common.BaseEntity;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
