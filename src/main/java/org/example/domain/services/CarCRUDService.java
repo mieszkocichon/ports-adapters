@@ -1,5 +1,6 @@
 package org.example.domain.services;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.example.domain.components.CarToCarEntityFactory;
 import org.example.domain.controllers.CarEntityToCarResponseAdapter;
@@ -9,7 +10,6 @@ import org.example.car.rest.CarResponse;
 import org.example.domain.repositories.CarRepository;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.Optional;
 
 @RequiredArgsConstructor

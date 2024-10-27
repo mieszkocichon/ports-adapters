@@ -14,9 +14,9 @@ public class CarQueryServiceImpl {
     private final InMemoryEventStore eventStore;
     private final CarEntityToCarResponseAdapter carEntityToCarResponseAdapter;
 
-    public CarResponse getCar(Long id) {
-        Car car = new Car(eventStore.getEventsForAggregate(id));
-        CarResponse map = carEntityToCarResponseAdapter.map(car);
-        return map;
-    }
+//    public CarResponse getCar(Long id) {
+//        Car car = new Car(eventStore.getEventsForAggregate(id));
+//        CarResponse map = carEntityToCarResponseAdapter.map(car);
+//        return map;
+//    }
 }

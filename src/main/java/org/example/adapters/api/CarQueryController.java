@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequiredArgsConstructor
-@RestController
-@RequestMapping("car-query")
+//@RequiredArgsConstructor
+//@RestController
+//@RequestMapping("car-query")
 public class CarQueryController {
-    private final CarQueryServiceImpl carQueryService;
-
-    @GetMapping("{id}")
-    public ResponseEntity<CarResponse> getCar(@PathVariable Long id) {
-        return ResponseEntity.ok(carQueryService.getCar(id));
-    }
+//    private final CarQueryServiceImpl carQueryService;
+//
+//    @GetMapping("{id}")
+//    public ResponseEntity<CarResponse> getCar(@PathVariable Long id) {
+//        return ResponseEntity.ok(carQueryService.getCar(id));
+//    }
 }

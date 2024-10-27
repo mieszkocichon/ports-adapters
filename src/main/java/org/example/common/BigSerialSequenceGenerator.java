@@ -1,5 +1,6 @@
 package org.example.common;
 
+import jakarta.persistence.Table;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.boot.model.relational.QualifiedName;
 import org.hibernate.boot.model.relational.QualifiedNameParser;
@@ -9,19 +10,15 @@ import org.hibernate.id.enhanced.SequenceStyleGenerator;
 import org.hibernate.internal.util.config.ConfigurationHelper;
 import org.hibernate.service.ServiceRegistry;
 
-import javax.persistence.Table;
 import java.util.Properties;
 
-@Slf4j
 @SuppressWarnings("unused") // Used by hibernate reflection
+@Slf4j
 public class BigSerialSequenceGenerator extends SequenceStyleGenerator {
 
     @Override
-    protected QualifiedName determineSequenceName(Properties params,
-                                                  Dialect dialect,
-                                                  JdbcEnvironment jdbcEnv,
+    protected QualifiedName determineSequenceName(Properties params, Dialect dialect, JdbcEnvironment jdbcEnv,
                                                   ServiceRegistry serviceRegistry) {
-
         String sequence = ConfigurationHelper.getString(TABLE, params) + "_id_seq";
         String entityClassName = ConfigurationHelper.getString(ENTITY_NAME, params);
 
@@ -31,10 +28,9 @@ public class BigSerialSequenceGenerator extends SequenceStyleGenerator {
             if (entityClass.isAnnotationPresent(Table.class)) {
                 Table table = entityClass.getAnnotation(Table.class);
 
-                String schema = table.schema();
-                if (!schema.isEmpty()) {
-                    params.put(SCHEMA, schema);
-
+                if (!table.schema().isEmpty()) {
+                    params.put(SCHEMA, table.schema());
+                    String schema = table.schema();
                     return new QualifiedNameParser.NameParts(
                             jdbcEnv.getIdentifierHelper().toIdentifier(ConfigurationHelper.getString(CATALOG, params)),
                             jdbcEnv.getIdentifierHelper().toIdentifier(schema),
