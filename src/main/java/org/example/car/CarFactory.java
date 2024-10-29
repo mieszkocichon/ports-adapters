@@ -3,7 +3,6 @@ package org.example.car;
 import org.example.car.rest.CreateCarRequest;
 import org.example.common.Factory;
 
-import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
@@ -17,7 +16,7 @@ public class CarFactory {
         car.setName(createRequest.getName());
         car.setOwner(createRequest.getOwner());
         car.setAmount(createRequest.getAmount());
-        car.setWarrantyDate(createRequest.getWarrantyDate());
+        car.setWarrantyDate(ZonedDateTime.now().plusYears(5));
         return car;
     }
 }

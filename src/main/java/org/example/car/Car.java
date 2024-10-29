@@ -34,8 +34,8 @@ public class Car {
     public static Car create(Long id, String name, String owner, BigDecimal amount) {
         Car car = new Car(new ArrayList<>());
         CarCreateEvent event = new CarCreateEvent(id, name, owner);
-        car.apply(event);  // Apply the event (modify the state)
-        car.changes.add(event);  // Add the event to the list of changes (track it)
+        car.apply(event);
+        car.changes.add(event);
         car.name = name;
         car.owner = owner;
         car.amount = amount;
@@ -61,7 +61,6 @@ public class Car {
             this.id = ((CarEditNameEvent) event).getCarId();
             this.name = ((CarEditNameEvent) event).getName();
         }
-        // Handle other event types here
     }
 
     public void markChangesAsCommitted() {

@@ -12,6 +12,7 @@ public class CarToCarEntityAdapter implements Adapter<Car, CarEntity> {
         carEntity.setUuid(in.getUuid());
         carEntity.setVersion(in.getVersion());
         carEntity.setName(in.getName());
+        carEntity.setOwner(in.getOwner());
         carEntity.setAmount(in.getAmount());
         carEntity.setWarrantyDate(in.getWarrantyDate());
         return carEntity;
