@@ -1,9 +1,10 @@
 package org.example.car;
 
 import lombok.RequiredArgsConstructor;
-import org.example.car.rest.CreateCarRequest;
 import org.example.car.rest.CarResponse;
+import org.example.car.rest.CreateCarRequest;
 import org.example.domain.controllers.CarEntityToCarResponseAdapter;
+import org.example.domain.model.EditCarNameRequest;
 import org.example.domain.repositories.CarRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,5 +22,14 @@ public class CarService {
                 .save(carToCarEntityAdapter
                         .map(car));
         return carEntityToCarResponseAdapter.map(carEntity);
+    }
+
+    public CarResponse updateOwner(EditCarNameRequest request) {
+         CarEntity car = carRepository
+                 .findById(request.getId())
+                 .orElseThrow(() -> new UserNotFoundException(request.getId()));
+         car.setOwner(request.getOwner());
+
+         return carEntityToCarResponseAdapter.map(car);
     }
 }

@@ -25,11 +25,11 @@ public class CarCommandServiceImpl {
 //        return carCRUDService.create(newCar);
 //    }
 
-    public CarResponse editName(EditCarNameRequest car) {
-        Car newCar = Car.editName(car.getId(), car.getName());
-        newCar.getChanges().forEach(eventStore::saveEvent);
-        newCar.markChangesAsCommitted();
-
-        return carCRUDService.update(newCar);
-    }
+//    public CarResponse editName(EditCarNameRequest car) {
+//        Car newCar = Car.editName(car.getId(), car.getName());
+//        newCar.getChanges().forEach(eventStore::saveEvent);
+//        newCar.markChangesAsCommitted();
+//
+//        return carCRUDService.update(newCar);
+//    }
 }

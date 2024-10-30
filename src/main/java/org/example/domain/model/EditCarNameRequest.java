@@ -7,5 +7,5 @@ import lombok.Setter;
 @Getter
 public class EditCarNameRequest {
     private Long id;
-    private String name;
+    private String owner;
 }
