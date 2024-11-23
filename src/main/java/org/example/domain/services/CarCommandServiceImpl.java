@@ -2,11 +2,7 @@ package org.example.domain.services;
 
 import lombok.RequiredArgsConstructor;
 import org.example.adapters.repository.InMemoryEventStore;
-import org.example.car.Car;
-import org.example.car.rest.CarResponse;
-import org.example.car.rest.CreateCarRequest;
 import org.example.domain.controllers.CarEntityToCarResponseAdapter;
-import org.example.domain.model.*;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor

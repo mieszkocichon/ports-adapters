@@ -4,13 +4,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import org.example.domain.events.CarCreateEvent;
-import org.example.domain.events.CarEditNameEvent;
 
-import java.math.BigDecimal;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Setter
@@ -21,49 +16,20 @@ public class Car {
     private int version;
     private @Size(min = 3, max = 255) String name;
     private @Size(min = 3, max = 255) String owner;
-    private BigDecimal amount;
+    private long amount;
     private ZonedDateTime warrantyDate;
 
-    @Getter
-    private final List<Object> changes = new ArrayList<>();
-
-    public Car(List<Object> events) {
-        events.forEach(this::apply);
-    }
-
-    public static Car create(Long id, String name, String owner, BigDecimal amount) {
-        Car car = new Car(new ArrayList<>());
-        CarCreateEvent event = new CarCreateEvent(id, name, owner);
-        car.apply(event);
-        car.changes.add(event);
+    public static Car create(String name, String owner, long amount) {
+        Car car = new Car();
         car.name = name;
         car.owner = owner;
         car.amount = amount;
         return car;
     }
 
-    public static Car editName(Long id, String name) {
-        Car car = new Car(new ArrayList<>());
-        CarEditNameEvent event = new CarEditNameEvent(id, name);
-        car.apply(event);
-        car.changes.add(event);
+    public static Car editName(String name) {
+        Car car = new Car();
         car.name = name;
         return car;
-    }
-
-    public void apply(Object event) {
-        if (event instanceof CarCreateEvent) {
-            this.id = ((CarCreateEvent) event).getCarId();
-            this.name = ((CarCreateEvent) event).getName();
-            this.owner = ((CarCreateEvent) event).getOwner();
-        }
-        if (event instanceof CarEditNameEvent) {
-            this.id = ((CarEditNameEvent) event).getCarId();
-            this.name = ((CarEditNameEvent) event).getName();
-        }
-    }
-
-    public void markChangesAsCommitted() {
-        changes.clear();
     }
 }

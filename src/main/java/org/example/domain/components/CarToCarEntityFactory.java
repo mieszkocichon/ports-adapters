@@ -1,8 +1,8 @@
 package org.example.domain.components;
 
-import org.example.common.Factory;
 import org.example.car.Car;
 import org.example.car.CarEntity;
+import org.example.common.Factory;
 
 import java.util.UUID;
 

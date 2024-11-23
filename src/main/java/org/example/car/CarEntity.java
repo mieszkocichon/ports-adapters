@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.example.common.BaseEntity;
 import org.hibernate.envers.Audited;
-import java.math.BigDecimal;
+
 import java.time.ZonedDateTime;
 
 @Setter
@@ -20,6 +20,6 @@ public class CarEntity extends BaseEntity {
 
     private @Size(min = 3, max = 255) String name;
     private @Size(min = 3, max = 255) String owner;
-    private @NotNull BigDecimal amount;
+    private @NotNull long amount;
     private ZonedDateTime warrantyDate;
 }

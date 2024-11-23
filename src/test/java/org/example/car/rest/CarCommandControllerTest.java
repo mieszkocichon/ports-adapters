@@ -5,33 +5,32 @@ import io.zonky.test.db.postgres.embedded.FlywayPreparer;
 import io.zonky.test.db.postgres.junit.EmbeddedPostgresRules;
 import io.zonky.test.db.postgres.junit.PreparedDbRule;
 import io.zonky.test.db.postgres.junit.SingleInstancePostgresRule;
+import org.example.car.Car;
 import org.example.car.CarEntity;
+import org.example.car.CarFactory;
+import org.example.car.CarToCarEntityAdapter;
 import org.example.domain.repositories.CarRepository;
 import org.junit.Rule;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.math.BigDecimal;
 import java.util.Optional;
 
 import static io.zonky.test.db.AutoConfigureEmbeddedDatabase.DatabaseProvider.ZONKY;
-import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.MOCK;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
-@SpringBootTest(webEnvironment = RANDOM_PORT)
+@SpringBootTest(webEnvironment = MOCK)
 @AutoConfigureEmbeddedDatabase(provider = ZONKY)
 public class CarCommandControllerTest {
 
@@ -49,11 +48,14 @@ public class CarCommandControllerTest {
     @Autowired
     private CarCommandController carCommandController;
 
-    @Mock
+    @Autowired
     private CarRepository carRepository;
 
-    @LocalServerPort
-    private int port;
+    @Autowired
+    private CarToCarEntityAdapter carToCarEntityAdapter;
+
+    @Autowired
+    private CarFactory carFactory;
 
     @Test
     void testCreateCar() throws Exception {
@@ -70,23 +72,20 @@ public class CarCommandControllerTest {
 
     @Test
     void testUpdateNameCar() throws Exception {
+        CreateCarRequest createCarRequest = new CreateCarRequest();
+        createCarRequest.setName("BMW2");
+        createCarRequest.setOwner("Mr. Toto2");
+        createCarRequest.setAmount(10L);
+        CarEntity carEntity = carToCarEntityAdapter.map(carFactory.create(createCarRequest));
+        CarEntity saved = carRepository.save(carEntity);
 
-        Long id = 1L;
+        mockMvc.perform(post("/car/update-name")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{ \"id\":" + saved.getId() + ", \"owner\": \"Mr. Tata\"}"))
+                .andExpect(status().isOk());
 
-        CarEntity carEntity = new CarEntity();
-        carEntity.setOwner("Mr. Toto");
-        carEntity.setName("BMW");
-        carEntity.setAmount(BigDecimal.valueOf(1000000));
-        when(carRepository.findById(id)).thenReturn(Optional.of(carEntity));
-
-        mockMvc.perform(
-                        post("/car/update-name")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content("{ \"id\": 1, \"owner\": \"Mr. Tata\"}"))
+        mockMvc.perform(get("/car/" + saved.getId()))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.version").value(0))
-                .andExpect(jsonPath("$.name").value("BMW"))
-                .andExpect(jsonPath("$.owner").value("Mr. Toto"))
-                .andExpect(jsonPath("$.amount").value(100000));
+                .andExpect(jsonPath("$.owner").value("Mr. Tata"));
     }
 }

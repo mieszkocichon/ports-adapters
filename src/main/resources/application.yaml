@@ -3,7 +3,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/car
     username: postgres
-    password: mmm
+    password: d2d2d2d2
   jpa:
     show-sql: true
     hibernate:

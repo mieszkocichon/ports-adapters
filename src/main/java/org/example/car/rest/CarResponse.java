@@ -4,7 +4,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
@@ -16,6 +15,6 @@ public class CarResponse {
     private int version;
     private String name;
     private String owner;
-    private BigDecimal amount;
+    private long amount;
     private ZonedDateTime warrantyDate;
 }
