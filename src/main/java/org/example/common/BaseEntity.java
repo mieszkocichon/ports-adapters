@@ -8,11 +8,13 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.envers.Audited;
 import org.hibernate.id.enhanced.SequenceStyleGenerator;
 
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
+@Audited
 @Setter
 @Getter
 @ToString(of = "uuid")
