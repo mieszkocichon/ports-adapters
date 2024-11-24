@@ -1,4 +1,4 @@
-package org.example.domain.model;
+package org.example.car;
 
 import lombok.Getter;
 import lombok.Setter;

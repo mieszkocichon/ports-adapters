@@ -6,7 +6,7 @@ services:
     container_name: spring-ports-adapters-project
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: mmm
+      POSTGRES_PASSWORD: d2d2d2d2
       POSTGRES_DB: car
     ports:
       - "5432:5432"

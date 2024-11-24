@@ -4,7 +4,7 @@ DB_NAME="car"
 DB_USER="postgres"
 DB_HOST="localhost"
 DB_PORT="5432"
-DB_PASSWORD="mmm"
+DB_PASSWORD="d2d2d2d2"
 
 export PGPASSWORD="$DB_PASSWORD"
 

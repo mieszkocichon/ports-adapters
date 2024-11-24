@@ -4,9 +4,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.example.car.rest.CarResponse;
 import org.example.car.rest.CreateCarRequest;
-import org.example.domain.controllers.CarEntityToCarResponseAdapter;
-import org.example.domain.model.EditCarNameRequest;
-import org.example.domain.repositories.CarRepository;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor

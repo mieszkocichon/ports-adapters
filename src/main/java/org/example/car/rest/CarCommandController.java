@@ -2,7 +2,7 @@ package org.example.car.rest;
 
 import lombok.RequiredArgsConstructor;
 import org.example.car.CarService;
-import org.example.domain.model.EditCarNameRequest;
+import org.example.car.EditCarNameRequest;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor

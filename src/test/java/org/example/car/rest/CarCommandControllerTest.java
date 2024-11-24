@@ -5,24 +5,19 @@ import io.zonky.test.db.postgres.embedded.FlywayPreparer;
 import io.zonky.test.db.postgres.junit.EmbeddedPostgresRules;
 import io.zonky.test.db.postgres.junit.PreparedDbRule;
 import io.zonky.test.db.postgres.junit.SingleInstancePostgresRule;
-import org.example.car.Car;
 import org.example.car.CarEntity;
 import org.example.car.CarFactory;
 import org.example.car.CarToCarEntityAdapter;
-import org.example.domain.repositories.CarRepository;
+import org.example.car.CarRepository;
 import org.junit.Rule;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Optional;
-
 import static io.zonky.test.db.AutoConfigureEmbeddedDatabase.DatabaseProvider.ZONKY;
-import static org.mockito.Mockito.when;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.MOCK;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -81,11 +76,11 @@ public class CarCommandControllerTest {
 
         mockMvc.perform(post("/car/update-name")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{ \"id\":" + saved.getId() + ", \"owner\": \"Mr. Tata\"}"))
+                        .content("{ \"id\":" + saved.getId() + ", \"owner\": \"Mr. Toto\"}"))
                 .andExpect(status().isOk());
 
         mockMvc.perform(get("/car/" + saved.getId()))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.owner").value("Mr. Tata"));
+                .andExpect(jsonPath("$.owner").value("Mr. Toto"));
     }
 }
