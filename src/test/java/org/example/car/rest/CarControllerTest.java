@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = MOCK)
 @AutoConfigureEmbeddedDatabase(provider = ZONKY)
-public class CarCommandControllerTest {
+public class CarControllerTest {
 
     @Rule
     public SingleInstancePostgresRule pg = EmbeddedPostgresRules.singleInstance();
@@ -41,7 +41,7 @@ public class CarCommandControllerTest {
     private MockMvc mockMvc;
 
     @Autowired
-    private CarCommandController carCommandController;
+    private CarController controller;
 
     @Autowired
     private CarRepository carRepository;
@@ -76,11 +76,11 @@ public class CarCommandControllerTest {
 
         mockMvc.perform(post("/car/update-name")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{ \"id\":" + saved.getId() + ", \"owner\": \"Mr. Toto\"}"))
+                        .content("{ \"id\":" + saved.getId() + ", \"owner\": \"Mr. Toto3\"}"))
                 .andExpect(status().isOk());
 
         mockMvc.perform(get("/car/" + saved.getId()))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.owner").value("Mr. Toto"));
+                .andExpect(jsonPath("$.owner").value("Mr. Toto3"));
     }
 }

@@ -25,12 +25,12 @@ public class CarService {
     public void updateOwner(EditCarNameRequest request) {
          CarEntity car = carRepository
                  .findById(request.getId())
-                 .orElseThrow(() -> new UserNotFoundException(request.getId()));
+                 .orElseThrow(() -> new CarNotFoundException(request.getId()));
          car.setOwner(request.getOwner());
     }
 
     @Transactional
     public CarResponse getById(Long id) {
-        return carEntityToCarResponseAdapter.map(carRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id)));
+        return carEntityToCarResponseAdapter.map(carRepository.findById(id).orElseThrow(() -> new CarNotFoundException(id)));
     }
 }
