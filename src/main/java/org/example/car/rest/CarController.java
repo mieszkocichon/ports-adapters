@@ -3,7 +3,7 @@ package org.example.car.rest;
 import lombok.RequiredArgsConstructor;
 import org.example.car.CarRecreateService;
 import org.example.car.CarService;
-import org.example.car.EditCarNameRequest;
+import org.example.car.CarUpdateRequest;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,9 +21,9 @@ public class CarController {
         return carService.create(request);
     }
 
-    @PostMapping("update-name")
-    public void updateOwner(@RequestBody EditCarNameRequest request) {
-        carService.updateOwner(request);
+    @PostMapping("update")
+    public void update(@RequestBody CarUpdateRequest request) {
+        carService.update(request);
     }
 
     @GetMapping("{id}")

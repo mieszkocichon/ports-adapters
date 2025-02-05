@@ -10,27 +10,28 @@ import org.springframework.stereotype.Service;
 @Service
 public class CarService {
     private final CarRepository carRepository;
-    private final CarFactory carFactory;
-    private final CarToCarEntityAdapter carToCarEntityAdapter;
+    private final CarCreateRequestToCarEntityAdapter carCreateRequestToCarEntityAdapter;
     private final CarEntityToCarResponseAdapter carEntityToCarResponseAdapter;
 
     @Transactional
     public CarResponse create(CreateCarRequest request) {
-        Car car = carFactory.create(request);
-        CarEntity carEntity = carRepository.save(carToCarEntityAdapter.map(car));
+        CarEntity carEntity = carRepository.save(carCreateRequestToCarEntityAdapter.map(request));
         return carEntityToCarResponseAdapter.map(carEntity);
     }
 
     @Transactional
-    public void updateOwner(EditCarNameRequest request) {
+    public void update(CarUpdateRequest request) {
          CarEntity car = carRepository
-                 .findById(request.getId())
-                 .orElseThrow(() -> new CarNotFoundException(request.getId()));
-         car.setOwner(request.getOwner());
+                 .findByUuid(request.getUuid())
+                 .or(() -> carRepository.findByCarId_CarId(request.getCarId()))
+                 .orElseThrow(() -> new CarNotFoundException(request.getUuid()));
+         request.updateCar(car);
     }
 
     @Transactional
     public CarResponse getById(Long id) {
-        return carEntityToCarResponseAdapter.map(carRepository.findById(id).orElseThrow(() -> new CarNotFoundException(id)));
+        return carEntityToCarResponseAdapter.map(carRepository
+                .findById(id)
+                .orElseThrow(() -> new CarNotFoundException(id)));
     }
 }

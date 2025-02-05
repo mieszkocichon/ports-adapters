@@ -5,9 +5,8 @@ import io.zonky.test.db.postgres.embedded.FlywayPreparer;
 import io.zonky.test.db.postgres.junit.EmbeddedPostgresRules;
 import io.zonky.test.db.postgres.junit.PreparedDbRule;
 import io.zonky.test.db.postgres.junit.SingleInstancePostgresRule;
+import org.example.car.CarCreateRequestToCarEntityAdapter;
 import org.example.car.CarEntity;
-import org.example.car.CarFactory;
-import org.example.car.CarToCarEntityAdapter;
 import org.example.car.CarRepository;
 import org.junit.Rule;
 import org.junit.jupiter.api.Test;
@@ -47,10 +46,7 @@ public class CarControllerTest {
     private CarRepository carRepository;
 
     @Autowired
-    private CarToCarEntityAdapter carToCarEntityAdapter;
-
-    @Autowired
-    private CarFactory carFactory;
+    private CarCreateRequestToCarEntityAdapter carCreateRequestToCarEntityAdapter;
 
     @Test
     void testCreateCar() throws Exception {
@@ -71,7 +67,7 @@ public class CarControllerTest {
         createCarRequest.setName("BMW2");
         createCarRequest.setOwner("Mr. Toto2");
         createCarRequest.setAmount(10L);
-        CarEntity carEntity = carToCarEntityAdapter.map(carFactory.create(createCarRequest));
+        CarEntity carEntity = carCreateRequestToCarEntityAdapter.map(createCarRequest);
         CarEntity saved = carRepository.save(carEntity);
 
         mockMvc.perform(post("/car/update-name")

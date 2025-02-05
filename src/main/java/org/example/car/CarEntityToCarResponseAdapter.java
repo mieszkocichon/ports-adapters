@@ -9,6 +9,8 @@ public class CarEntityToCarResponseAdapter implements Adapter<CarEntity, CarResp
     public CarResponse map(CarEntity car) {
         return CarResponse.builder()
                 .uuid(car.getUuid())
+                .carId(car.getCarId().getCarId())
+                .version(car.getVersion())
                 .name(car.getName())
                 .owner(car.getOwner())
                 .amount(car.getAmount())

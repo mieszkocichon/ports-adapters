@@ -5,6 +5,7 @@ CREATE TABLE car
 (
     id            BIGSERIAL PRIMARY KEY,
     uuid          UUID                     NOT NULL,
+    car_id        UUID                     NOT NULL,
     version       INTEGER                  NOT NULL DEFAULT 0,
     updated_at    TIMESTAMP WITH TIME ZONE NOT NULL,
     created_at    TIMESTAMP WITH TIME ZONE NOT NULL,
@@ -20,6 +21,7 @@ CREATE TABLE car_history
     revtype       SMALLINT,
     id            BIGINT,
     uuid          UUID,
+    car_id        UUID,
     version       INTEGER,
     updated_at    TIMESTAMP WITH TIME ZONE,
     created_at    TIMESTAMP WITH TIME ZONE,
