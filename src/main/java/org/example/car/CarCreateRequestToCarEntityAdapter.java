@@ -2,11 +2,11 @@ package org.example.car;
 
 import org.example.adapters.Adapter;
 import org.example.car.rest.CreateCarRequest;
-import org.springframework.stereotype.Component;
+import org.example.common.Factory;
 
 import java.util.UUID;
 
-@Component
+@Factory
 public class CarCreateRequestToCarEntityAdapter implements Adapter<CreateCarRequest, CarEntity> {
     @Override
     public CarEntity map(CreateCarRequest in) {
