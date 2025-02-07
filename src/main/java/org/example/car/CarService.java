@@ -19,13 +19,13 @@ public class CarService {
         return carEntityToCarResponseAdapter.map(carEntity);
     }
 
-    @Transactional
     public void update(CarUpdateRequest request) {
          CarEntity car = carRepository
                  .findByUuid(request.getUuid())
                  .or(() -> carRepository.findByCarId_CarId(request.getCarId()))
                  .orElseThrow(() -> new CarNotFoundException(request.getUuid()));
          request.updateCar(car);
+         carRepository.save(car);
     }
 
     @Transactional

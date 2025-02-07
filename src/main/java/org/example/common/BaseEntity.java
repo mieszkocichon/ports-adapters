@@ -1,6 +1,11 @@
 package org.example.common;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Version;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -45,7 +50,7 @@ public class BaseEntity {
     private UUID uuid;
 
     @Version
-    private int version;
+    private Integer version;
 
     @Column(updatable = false)
     @CreationTimestamp
