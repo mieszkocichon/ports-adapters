@@ -6,6 +6,8 @@ import org.example.car.rest.CarResponse;
 import org.example.car.rest.CreateCarRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @Service
 public class CarService {
@@ -20,18 +22,18 @@ public class CarService {
     }
 
     public void update(CarUpdateRequest request) {
-         CarEntity car = carRepository
-                 .findByUuid(request.getUuid())
-                 .or(() -> carRepository.findByCarId_CarId(request.getCarId()))
-                 .orElseThrow(() -> new CarNotFoundException(request.getUuid()));
-         request.updateCar(car);
+        CarEntity car = carRepository
+                .findByUuid(request.getUuid())
+                .or(() -> carRepository.findByCarId_CarId(request.getCarId()))
+                .orElseThrow(() -> new CarNotFoundException(request.getUuid()));
+        request.updateCar(car);
          carRepository.save(car);
     }
 
     @Transactional
-    public CarResponse getById(Long id) {
+    public CarResponse getById(UUID id) {
         return carEntityToCarResponseAdapter.map(carRepository
-                .findById(id)
+                .findByCarId_CarId(id)
                 .orElseThrow(() -> new CarNotFoundException(id)));
     }
 }

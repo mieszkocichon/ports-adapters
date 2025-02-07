@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
@@ -27,7 +28,7 @@ public class CarController {
     }
 
     @GetMapping("{id}")
-    public CarResponse get(@PathVariable Long id) {
+    public CarResponse get(@PathVariable UUID id) {
         return carService.getById(id);
     }
 
