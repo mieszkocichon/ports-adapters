@@ -36,3 +36,11 @@ spring:
 logging:
   level:
     ROOT: INFO
+    org:
+      flywaydb: DEBUG
+      hibernate: DEBUG
+
+backend:
+  app:
+    jwtSecret: shopoeRaYY7Wo24sDqKSX3IM9ASGmdGPmkTd9jo1QTy4b7P9Ze5_9hKolVX8xNrQDcNRfVEdTZNOuOyqEGhXEbdJI
+    jwtExpirationMs: 80000000000

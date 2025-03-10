@@ -1,5 +1,6 @@
 package org.example.car;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -14,8 +15,8 @@ public class CarUpdateRequest {
     private @NotNull UUID uuid;
     private @NotNull UUID carId;
     private int version;
-    private @Size(min = 3, max = 255) String name;
-    private @Size(min = 3, max = 255) String owner;
+    private @NotBlank @Size(min = 3, max = 255) String name;
+    private @NotBlank @Size(min = 3, max = 255) String owner;
     private @NotNull Long amount;
     private @NotNull ZonedDateTime warrantyDate;
 

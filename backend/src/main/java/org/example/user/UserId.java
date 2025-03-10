@@ -1,4 +1,4 @@
-package org.example.car;
+package org.example.user;
 
 import jakarta.persistence.Embeddable;
 import lombok.EqualsAndHashCode;
@@ -10,9 +10,9 @@ import java.util.UUID;
 
 @Setter
 @Getter
-@ToString(of = "carId")
-@EqualsAndHashCode(of = "carId")
+@ToString(of = "userId")
+@EqualsAndHashCode(of = "userId")
 @Embeddable
-public class CarId {
-    private UUID carId;
+public class UserId {
+    private UUID userId;
 }

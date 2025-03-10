@@ -1,4 +1,4 @@
-package org.example.car.rest;
+package org.example.car;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;

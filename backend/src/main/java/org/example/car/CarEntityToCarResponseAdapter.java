@@ -1,7 +1,6 @@
 package org.example.car;
 
 import org.example.adapters.Adapter;
-import org.example.car.rest.CarResponse;
 import org.springframework.stereotype.Component;
 
 @Component

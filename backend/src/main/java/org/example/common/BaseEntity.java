@@ -29,6 +29,7 @@ import java.util.UUID;
 public class BaseEntity {
 
     public static final String SEQ_GEN = "bigserial";
+
     @Id
     @GeneratedValue(
             generator = SEQ_GEN,
@@ -36,7 +37,7 @@ public class BaseEntity {
     )
     @GenericGenerator(
             name = SEQ_GEN,
-            strategy = "org.example.common.BigSerialSequenceGenerator",
+            type = BigSerialSequenceGenerator.class,
             parameters = {
 //                    @Parameter(name = SequenceStyleGenerator.CONFIG_PREFER_SEQUENCE_PER_ENTITY, value = "true"),
                     @Parameter(name = "prefer_sequence_per_entity", value = "true"),

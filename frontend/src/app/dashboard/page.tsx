@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 const Dashboard = () => {
-    const [user, setUser] = useState(null);
+    const [userEntity, setUser] = useState(null);
     const router = useRouter();
 
     useEffect(() => {
@@ -20,7 +20,7 @@ const Dashboard = () => {
     return (
         <div>
             <h1>Dashboard</h1>
-            {user && <p>Welcome, {user?.username}!</p>}
+            {userEntity && <p>Welcome, {userEntity?.username}!</p>}
         </div>
     )
 }
