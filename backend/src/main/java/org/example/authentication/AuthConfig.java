@@ -9,9 +9,9 @@ import org.springframework.context.annotation.PropertySource;
 @Configuration
 @PropertySource("classpath:application.yaml")
 public class AuthConfig {
-    @Value("${shop.app.jwtSecret}")
+    @Value("${backend.app.jwtSecret}")
     private String jwtSecret;
 
-    @Value("${shop.app.jwtExpirationMs}")
+    @Value("${backend.app.jwtExpirationMs}")
     private String jwtExpirationMs;
 }

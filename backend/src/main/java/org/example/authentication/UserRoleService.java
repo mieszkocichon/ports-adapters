@@ -1,41 +1,20 @@
 package org.example.authentication;
 
-import org.example.user.ERole;
+import lombok.RequiredArgsConstructor;
+import org.example.user.RoleName;
 import org.example.user.UserRole;
+import org.example.user.UserRoleRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@RequiredArgsConstructor
 @Service
 public class UserRoleService {
-    public Set<UserRole> getRole(AuthSignupRequest authSignupRequest) {
-        Set<String> strRoles = authSignupRequest.getRoles();
-        Set<UserRole> roles = new HashSet<>();
+    private final UserRoleRepository userRoleRepository;
 
-        if (strRoles == null) {
-            roles.add(new UserRole(ERole.ROLE_USER));
-        }
-        else {
-            strRoles.forEach(role -> {
-                switch (role) {
-                    case "admin":
-                        UserRole adminRole = new UserRole(ERole.ROLE_ADMIN);
-                        roles.add(adminRole);
-
-                        break;
-                    case "mod":
-                        UserRole modRole = new UserRole(ERole.ROLE_MODERATOR);
-                        roles.add(modRole);
-
-                        break;
-                    default:
-                        UserRole userRole = new UserRole(ERole.ROLE_USER);
-                        roles.add(userRole);
-                }
-            });
-        }
-
-        return roles;
+    public Set<UserRole> getInitialUserRoles() {
+        return Set.of(userRoleRepository.getUserRoleByRoleName(RoleName.ROLE_USER));
     }
 }

@@ -5,9 +5,11 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.common.JwtUtils;
 import org.example.user.UserDetailsImpl;
-import org.example.user.UserEntity;
+import org.example.user.User;
+import org.example.user.UserEmailAlreadyExistsException;
 import org.example.user.UserLoginRequest;
 import org.example.user.UserRepository;
+import org.example.user.UsernameAlreadyExistsException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,7 +27,7 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
     private final UserRepository userRepository;
-    private final AuthSignupRequestToUserEntityAdapter authSignupRequestToUserEntityAdapter;
+    private final AuthSignupRequestToUserAdapter authSignupRequestToUserAdapter;
     private final UserEntityToUserRegisterResponseAdapter userEntityToUserRegisterResponseAdapter;
     private final UserRoleService userRoleService;
 
@@ -60,17 +62,18 @@ public class AuthService {
 
     @Transactional
     public UserResponse registerUser(@Valid AuthSignupRequest authSignupRequest) {
+        if (userRepository.existsByUsername(authSignupRequest.getUsername())) {
+            throw new UsernameAlreadyExistsException(authSignupRequest.getUsername());
+        }
 
-        userRepository.findByUsername(authSignupRequest.getUsername())
-                .orElseThrow(() -> new AuthUsernameNotFoundException(authSignupRequest.getUsername()));
+        if (userRepository.existsByEmail(authSignupRequest.getEmail())) {
+            throw new UserEmailAlreadyExistsException(authSignupRequest.getEmail());
+        }
 
-        userRepository.findByEmail(authSignupRequest.getEmail())
-                .orElseThrow(() -> new AuthEmailNotFoundException(authSignupRequest.getEmail()));
+        User user = authSignupRequestToUserAdapter.map(authSignupRequest);
+        user.setRoles(userRoleService.getInitialUserRoles());
+        userRepository.save(user);
 
-        UserEntity userEntity = authSignupRequestToUserEntityAdapter.map(authSignupRequest);
-        userEntity.setRoles(userRoleService.getRole(authSignupRequest));
-        userRepository.save(userEntity);
-
-        return userEntityToUserRegisterResponseAdapter.map(userEntity);
+        return userEntityToUserRegisterResponseAdapter.map(user);
     }
 }

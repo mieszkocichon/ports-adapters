@@ -22,25 +22,18 @@ import java.util.Set;
     })
 @Entity
 @ToString(of = "userId")
-public class UserEntity extends BaseEntity {
+public class User extends BaseEntity {
 
     private @Embedded UserId userId;
     private @NotBlank @Size(min = 3, max = 255) String username;
     private @NotBlank @Size(min = 3, max = 255) String email;
     private @NotBlank @Size(min = 3, max = 255) String password;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<UserRole> roles = new HashSet<>();
 
-    public UserEntity(String username,
-                      String email,
-                      String password) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-    }
 }
