@@ -20,7 +20,7 @@ public class AuthController {
     }
 
     @PostMapping("signup")
-    public UserResponse registerUser(@Valid @RequestBody AuthSignupRequest authSignupRequest) {
+    public AuthRegisterUserResponse registerUser(@Valid @RequestBody AuthSignupRequest authSignupRequest) {
         return authService.registerUser(authSignupRequest);
     }
 }

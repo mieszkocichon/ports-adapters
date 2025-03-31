@@ -8,16 +8,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class UserEntityToUserRegisterResponseAdapter implements Adapter<User, UserResponse> {
+public class UserEntityToUserRegisterResponseAdapter implements Adapter<User, AuthRegisterUserResponse> {
     private final UserRoleToUserRoleResponseAdapter roleToUserRoleResponseAdapter;
 
     @Override
-    public UserResponse map(User in) {
-        UserResponse userResponse = new UserResponse();
-        userResponse.setUsername(in.getUsername());
-        userResponse.setUserId(in.getUserId());
-        userResponse.setEmail(in.getEmail());
-        userResponse.setRoles(roleToUserRoleResponseAdapter.set(in.getRoles()));
-        return userResponse;
+    public AuthRegisterUserResponse map(User in) {
+        AuthRegisterUserResponse authRegisterUserResponse = new AuthRegisterUserResponse();
+        authRegisterUserResponse.setUsername(in.getUsername());
+        authRegisterUserResponse.setUserId(in.getUserId());
+        authRegisterUserResponse.setEmail(in.getEmail());
+        authRegisterUserResponse.setRoles(roleToUserRoleResponseAdapter.set(in.getRoles()));
+        return authRegisterUserResponse;
     }
 }

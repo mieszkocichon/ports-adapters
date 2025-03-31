@@ -15,7 +15,7 @@ import java.util.Set;
 @Setter
 @Getter
 @Audited
-@Table(name = "user",
+@Table(name = "users",
     uniqueConstraints = {
             @UniqueConstraint(columnNames = "username"),
             @UniqueConstraint(columnNames = "email")

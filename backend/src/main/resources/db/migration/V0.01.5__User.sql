@@ -1,7 +1,7 @@
 CREATE
 EXTENSION IF NOT EXISTS "uuid-ossp";
 
-CREATE TABLE "user"
+CREATE TABLE users
 (
   id BIGSERIAL PRIMARY KEY,
   uuid UUID NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE "user"
   password VARCHAR(255) UNIQUE NOT NULL
 );
 
-CREATE TABLE user_history
+CREATE TABLE users_history
 (
   rev BIGINT,
   revtype SMALLINT,

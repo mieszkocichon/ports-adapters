@@ -29,7 +29,7 @@ public class AuthService {
     private final UserRepository userRepository;
     private final AuthSignupRequestToUserAdapter authSignupRequestToUserAdapter;
     private final UserEntityToUserRegisterResponseAdapter userEntityToUserRegisterResponseAdapter;
-    private final UserRoleService userRoleService;
+    private final AuthUserRoleService authUserRoleService;
 
     @Transactional
     public AuthUserResponse authenticateUser(UserLoginRequest userLoginRequest) {
@@ -61,7 +61,7 @@ public class AuthService {
     }
 
     @Transactional
-    public UserResponse registerUser(@Valid AuthSignupRequest authSignupRequest) {
+    public AuthRegisterUserResponse registerUser(@Valid AuthSignupRequest authSignupRequest) {
         if (userRepository.existsByUsername(authSignupRequest.getUsername())) {
             throw new UsernameAlreadyExistsException(authSignupRequest.getUsername());
         }
@@ -71,7 +71,7 @@ public class AuthService {
         }
 
         User user = authSignupRequestToUserAdapter.map(authSignupRequest);
-        user.setRoles(userRoleService.getInitialUserRoles());
+        user.setRoles(authUserRoleService.getInitialUserRoles());
         userRepository.save(user);
 
         return userEntityToUserRegisterResponseAdapter.map(user);
